@@ -1,19 +1,33 @@
 #include <iostream>
 #include <sstream>
 #include <typeinfo>
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
+#include <cstring>
+#include <algorithm>
 
 using namespace std;
 
 int main(){
     int i;
-    char response;
+    char response[80];
     for (i = 0; i < 6; i++){
         cout << "mibecraft" << endl;
     }
     cout << "what do you think of that" << endl;
-    cin >> response;
-    response = response + 32;
+    cin.getline (response,80);
+    //getline(cin, response);
+    cout << response << endl;
+    for (i = 0; i < strlen(response); i++){
+        response[i] = toupper(response[i]);
+    }
+    //if (response == ('E', 'P', 'I', 'C'){
+     //   cout << "ok loser" << endl;
+   // }
+   // else{
+    //    cout << "it doesn't work" << endl;
+    //}
+    //transform(response.begin(), response.end(), response.begin(), :: toupper);
+    //toupper(response);
     cout << response << endl;
     return 0;
 }
