@@ -4,33 +4,77 @@
 #include <bits/stdc++.h>
 #include <cstring>
 #include <algorithm>
+#include <ctype.h>
+#include <stdio.h>
 
 using namespace std;
-
+string response;
+char store [80];
+int checkn();
+int lets;
+int half;
+int palin();
+char palf [40];
+int countopalf;
+int flag;
 int main(){
-    int i;
-    char response[80];
-    for (i = 0; i < 6; i++){
-        cout << "mibecraft" << endl;
+    cout << "enter a palindrome please." << endl;
+    getline(cin,response);
+    if (response.length() > 80){
+        cout << "only enter up to 80 characters" << endl;
+        main();
     }
-    cout << "what do you think of that" << endl;
-    cin.getline (response,80);
-    //getline(cin, response);
-    cout << response << endl;
-    for (i = 0; i < strlen(response); i++){
-        response[i] = toupper(response[i]);
-    }
-    //if (response == ('E', 'P', 'I', 'C'){
-     //   cout << "ok loser" << endl;
-   // }
-   // else{
-    //    cout << "it doesn't work" << endl;
-    //}
-    //transform(response.begin(), response.end(), response.begin(), :: toupper);
-    //toupper(response);
-    cout << response << endl;
+    checkn();
     return 0;
 }
+int checkn(){
+    lets = 0;
+    for (int i = 0; i < response.length(); i++){
+        if (isalpha(response[i])){
+            store[lets] = response[i];
+            lets++;
+        }else{
+            cout << "enter only letters please." << endl;
+            std::fill_n(store, 80, 0);
+            main();
+        }
+    }
+    if (lets % 2 == 1){
+        int half = 1;
+    }else{
+        int half = 0;
+    }
+    palin();
+    return 0;
+}
+int palin(){
+    lets -= half;
+    for (int o = 0; o < (lets/2); o++){
+        palf[o] = store[o];
+    }
+    for (int u = ((lets / 2)+ half); u < (lets + half); u++){
+        countopalf = 0;
+        if (store[u] == palf[countopalf]){
+            
+        }else{
+            flag = 1;
+            break;
+        }
+    }
+    if (flag == 1){
+        cout << "that is not a palindrome" << endl;
+        flag = 0;
+        std::fill_n(store, 80, 0);
+        std::fill_n(palf, 40, 0);
+        half = 0;
+        lets = 0;
+        main();
+    }else{
+        cout << "you entered " << store << " which is a palindrome! Great job!" << endl;
+    }
+    return 0;
+}
+
 
 /*
 int main(){
