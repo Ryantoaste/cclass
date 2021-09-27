@@ -8,15 +8,14 @@
 #include <stdio.h>
 
 using namespace std;
-string response;
 char store [80];
-int checkn();
+string response;
 int lets;
+int checkn();
 int half;
 int palin();
 char palf [40];
-int countopalf;
-int flag;
+int end();
 int main(){
     cout << "enter a palindrome please." << endl;
     getline(cin,response);
@@ -48,14 +47,15 @@ int checkn(){
     return 0;
 }
 int palin(){
+    int flag;
     lets -= half;
     for (int o = 0; o < (lets/2); o++){
         palf[o] = store[o];
     }
-    for (int u = ((lets / 2)+ half); u < (lets + half); u++){
-        countopalf = 0;
+    int countopalf = 0;
+    for (int u = ((lets + half)- 1); u > ((lets / 2)+ 1); u--){
         if (store[u] == palf[countopalf]){
-            
+            countopalf++;
         }else{
             flag = 1;
             break;
@@ -71,36 +71,28 @@ int palin(){
         main();
     }else{
         cout << "you entered " << store << " which is a palindrome! Great job!" << endl;
+        end();
     }
     return 0;
 }
-
-
-/*
-int main(){
-  string str;
-  cout<<"Enter a string: ";
-  getline(cin,str);
-  int flag=0;
- // Checking if string contians special character
-  for(int i=0;i<str.length();i++)
-  {
-    if ((str[i]>=48 && str[i]<=57)||
-        (str[i]>=65 && str[i]<=90)||
-        (str[i]>=97 && str[i]<=122))
-        {
-          continue;
-        }
-    else
-    {
-      cout<<"String contains special character.\n";
-      flag=1;
-      break;
+int end(){
+    string proposal;
+    cout << "Good job! You made a palindrome!" << endl;
+    cout << "Would you like to exit the program, or restart? (exit, restart)" << endl;
+    transform(proposal.begin(), proposal.end(), proposal.begin(), :: tolower);
+    if (proposal == "exit"){
+        cout << "Ok goodbye." << endl;
+        exit(0);
+    }else if (proposal == "restart"){
+        cout << "Again!!" << endl;
+        std::fill_n(store, 80, 0);
+        std::fill_n(palf, 40, 0);
+        half = 0;
+        lets = 0;
+        main();
+    }else{
+        cout << "Only enter exit, or restart." << endl;
+        end();
     }
-  }
-  if(flag==0)
-  {
-    cout<<"There is no special character in the string.\n";
-  }
-  return 0;
-}*/
+    return 0;
+}
