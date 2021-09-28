@@ -1,3 +1,6 @@
+//this program will allow the user to input a palindrome, it will only allow 80 characters and 
+//will remove all spaces and non-alphanumeric characters.
+//all the imports I need.
 #include <iostream>
 #include <sstream>
 #include <typeinfo>
@@ -8,6 +11,8 @@
 #include <stdio.h>
 
 using namespace std;
+//these are all the variables that need to be used across multiple functions
+//and functions too.
 char store [80];
 string response;
 int lets;
@@ -16,33 +21,51 @@ int half;
 int palin();
 char palf [40];
 int end();
+//this function asks the user to enter a palindrome and checks if it is under 80 characters
 int main(){
     cout << "enter a palindrome please." << endl;
-    getline(cin,response);
+    //getline allows the program to pick up the entire line of what the user enters, including 
+    //spaces
+    getline(cin, response);
     if (response.length() > 80){
+        //if they enter more than 80 characters, it will tell them not to do that, and restart
+        //the function
         cout << "only enter up to 80 characters" << endl;
         main();
+    }else if (response.length() == 0){
+        //this line is a fix for a previous bug that would not let the user enter the 
+        //palindrome after restarting, it knew there was nothing in the string and did it
+        //anyways, so if there is nothing in the string, it takes input again
+        getline(cin, response);
     }
+    //goes to the funnction removing all spaces and non-alphanumeric characters
     checkn();
     return 0;
 }
+//this function removes all spaces and non-alphanumeric characters
 int checkn(){
+    //lets gets the number of valid characters (stands for letters) in the response
     lets = 0;
     for (int i = 0; i < response.length(); i++){
+        //the isalpha condition makes sure it is a letter
         if (isalpha(response[i])){
+            //stores the contents of response in an array in the for loop
             store[lets] = response[i];
+            //increases lets so it always puts it into the next place in store
             lets++;
         }else{
-            cout << "enter only letters please." << endl;
-            std::fill_n(store, 80, 0);
-            main();
+            //if they enter a space or a special character, it does not include that in the 
+            //palindrome and moves on.
         }
     }
+    //this segment makes it so if the palindrome has an odd number of characters,
+    //half, which will subtract from lets, equals one
     if (lets % 2 == 1){
         int half = 1;
     }else{
         int half = 0;
     }
+    //goes to the function which checks for a palindrome.
     palin();
     return 0;
 }
@@ -53,7 +76,7 @@ int palin(){
         palf[o] = store[o];
     }
     int countopalf = 0;
-    for (int u = ((lets + half)- 1); u > ((lets / 2)+ 1); u--){
+    for (int u = ((lets + half)- 1); u > (lets / 2); u--){
         if (store[u] == palf[countopalf]){
             countopalf++;
         }else{
@@ -79,6 +102,7 @@ int end(){
     string proposal;
     cout << "Good job! You made a palindrome!" << endl;
     cout << "Would you like to exit the program, or restart? (exit, restart)" << endl;
+    cin >> proposal;
     transform(proposal.begin(), proposal.end(), proposal.begin(), :: tolower);
     if (proposal == "exit"){
         cout << "Ok goodbye." << endl;
@@ -89,6 +113,7 @@ int end(){
         std::fill_n(palf, 40, 0);
         half = 0;
         lets = 0;
+        cin.clear();
         main();
     }else{
         cout << "Only enter exit, or restart." << endl;
