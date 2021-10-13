@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <cstdlib>
 #include <ctime>
+#include <string>
 using namespace std;
 int y;
 int win;
@@ -26,27 +27,27 @@ int other();
 string takelist[9];
 int done = 0;
 int main(){
-    cout << "this is tic tac toe. are there 2 players or 1 player?" << endl;
+    cout << "This is tic tac toe. Are there 2 players or 1 player?" << endl;
     cin >> playersnum;
     if (playersnum == "2" || playersnum == "1"){
         string xo;
-        cout << "will you be x or o player one?" << endl;
+        cout << "Will you be x or o player one?" << endl;
         cin >> xo;
         if (xo == "x" || xo == "o"){
             player1 = xo;
             if (xo == "x"){
-                cout << "player 2, you are o." << endl;
+                cout << "Player 2, you are o." << endl;
                 player2 = "o";
             }else{
-                cout << "player 2, you are x." << endl;
+                cout << "Player 2, you are x." << endl;
                 player2 = "x";
             }
         }else{
-            cout << "only say x or o please" << endl;
+            cout << "Only say x or o please" << endl;
             main();
         }
     }else{
-        cout << "only say 1 or two for number of players." << endl;
+        cout << "Only say 1 or two for number of players." << endl;
         main();
     }
     mark();
@@ -69,7 +70,7 @@ int play(){
     cout << "| " << places[0] << " | " << places[1] << " | " << places[2] << endl;
     cout << "| " << places[3] << " | " << places[4] << " | " << places[5] << endl;
     cout << "| " << places[6] << " | " << places[7] << " | " << places[8] << endl;
-    cout << "which one will you play? " << endl;
+    cout << "Which one will you play? " << endl;
     cin >> move;
     for (int i = 0; i < 9; i++){
         if (places[i] == move){
@@ -118,19 +119,20 @@ int victory(){
         win = 1;
     }
     if (win == 1){
-        cout << victor << " has won the game! The game took " << turn << " tries!" << endl;
+        cout << victor << " Has won the game! The game took " << turn << " turns!" << endl;
         end();
-    }else if(turn == 9){
-        cout << "There is a tie between player 1 and 2. Noone wins." << endl;
+    }else if(turn == 10){
+        cout << "There is a tie between player 1 and 2. Nobody wins." << endl;
         victor = "";
+        wrote = "";
         end();
     }
     return 0;
 }
 int end(){
-    if (victor == "Player 1"){
+    if (wrote == "o"){
         owins++;
-    }else if (victor == "Player 2"){
+    }else if (wrote == "x"){
         xwins++;
     }
     cout << "o has won " << owins << " times and x has won " << xwins << " times." << endl;
@@ -142,10 +144,18 @@ int end(){
         exit(0);
     }else if(finalDes == "restart") {
         cout << "Again!" << endl;
-        places == { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-        takelist == { "", "", "", "", "", "", "", "", "" };
+        for (int i = 0; i < 9; i++){
+            takelist[i] = "";
+        }
+        std::fill_n(places, 9, 0);
+        for (int u = 0; u < 9; u++){
+            cout << places[u] << " that was in places" << endl;
+        }
+        places[0] = "1"; places[1] = "2"; places[2] = "3"; places[3] = "4"; places[4] = "5";
+        places[5] = "6"; places[6] = "7"; places[7] = "8"; places[8] = "9";
         turn = 1;
         win = 0;
+        main();
     }
     return 0;
 }
@@ -154,12 +164,15 @@ int other(){
     rndom = (rand()%8)+0;
     cout << rndom << endl;
     for(int y; y < 9; y++){
+        cout << takelist[y] << endl;
         if (takelist[y] == rndom){
-            y = y;
+            cout << takelist[y] << endl;
             other();
         }
     }
+    y = y;
     places[y] = wrote;
+    cout << places[y] <<endl;
     turn += 1;
     victory();
     mark();
