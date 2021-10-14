@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <string>
+#include <random>
 using namespace std;
 int y;
 int win;
@@ -14,7 +15,7 @@ int owins;
 int end();
 string victor;
 int victory();
-string rndom;
+int rndom;
 int turn = 1;
 string playersnum;
 string player1;
@@ -148,9 +149,6 @@ int end(){
             takelist[i] = "";
         }
         std::fill_n(places, 9, 0);
-        for (int u = 0; u < 9; u++){
-            cout << places[u] << " that was in places" << endl;
-        }
         places[0] = "1"; places[1] = "2"; places[2] = "3"; places[3] = "4"; places[4] = "5";
         places[5] = "6"; places[6] = "7"; places[7] = "8"; places[8] = "9";
         turn = 1;
@@ -160,19 +158,20 @@ int end(){
     return 0;
 }
 int other(){
-    srand((unsigned)time(0));
-    rndom = (rand()%8)+0;
-    cout << rndom << endl;
-    for(int y; y < 9; y++){
-        cout << takelist[y] << endl;
-        if (takelist[y] == rndom){
-            cout << takelist[y] << endl;
-            other();
-        }
+    std::random_device dev;
+    std::mt19937 rng(dev());
+    std::uniform_int_distribution<std::mt19937::result_type> rndom(0,8);
+    for (int i = 0; i < 9; i++){
+        cout << places[i] << " that was in places" << endl;
     }
-    y = y;
-    places[y] = wrote;
-    cout << places[y] <<endl;
+    if (places[rndom(rng)] == "x" || places[rndom(rng)] == "o"){
+        other();
+    }
+    cout << places[rndom(rng)] << " what was in places?" << endl;
+    places[rndom(rng)] = wrote;
+    for (int i = 0; i < 9; i++){
+        cout << places[i] << " also was places" << endl;
+    }
     turn += 1;
     victory();
     mark();
