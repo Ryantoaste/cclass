@@ -4,6 +4,7 @@
 #include <typeinfo>
 #include <bits/stdc++.h>
 #include <algorithm>
+#include <vector>
 
 using namespace std;
 struct id {
@@ -11,8 +12,10 @@ struct id {
     string lastName;
     int studentId;
     float gpa;
-} ;
-
+};
+int add();
+int i = 0;
+vector<id*> * student = new vector<id*>(3);
 int main(){
     string terminal;
     cout << "This is a catalogue of students. Type ADD to add a student, PRINT to "
@@ -20,7 +23,7 @@ int main(){
     cin >> terminal;
     transform(terminal.begin(), terminal.end(), terminal.begin(), :: toupper);
     if (terminal == "ADD"){
-        cout << "ADD function coming soon." << endl;
+        add();
         main();
     }else if (terminal == "PRINT") {
         cout << "PRINT function coming soon." << endl;
@@ -38,9 +41,17 @@ int main(){
     return 0;
 }
 int add(){
-    string 1name;
-    string 2name;
-    int numberd;
-    float grades;
+    cout << "Enter the student's first name." << endl;
+    cin >> student->at(i)->firstName;
+    cout << "Enter the students last name." << endl;
+    cin >> student->at(i)->lastName;
+    cout << "Enter the students gpa." << endl;
+    if (!(student->at(i)->gpa)){
+        student->erase(student->begin()+i);
+        cout << "Only enter a float for gpa." << endl;
+    }else{
+        student->at(i)->gpa;
+    }
+    i++;
     return 0;
 }
