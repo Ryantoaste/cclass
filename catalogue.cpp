@@ -5,14 +5,33 @@
 #include <bits/stdc++.h>
 #include <algorithm>
 #include <vector>
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
 
 using namespace std;
 struct id {
-    string firstName;
-    string lastName;
-    int studentId;
-    float gpa;
+  string firstName;
+  string lastName;
+  int studentId;
+  float gpa;
 };
+vector<id> exist;
+bool isFloat(float x){
+  return true;
+}
+bool isFloat(int x){
+  return false;
+}
+bool isNum(string y){
+  for (int i; i < y.length(); i++){
+    if (isdigit(i) == false){
+      return false;
+    }
+  }
+  return true;
+}
+bool isFloat();
 int add();
 int i = 0;
 vector<id*> * student = new vector<id*>(3);
@@ -41,17 +60,27 @@ int main(){
     return 0;
 }
 int add(){
-    cout << "Enter the student's first name." << endl;
-    cin >> student->at(i)->firstName;
-    cout << "Enter the students last name." << endl;
-    cin >> student->at(i)->lastName;
-    cout << "Enter the students gpa." << endl;
-    if (!(student->at(i)->gpa)){
-        student->erase(student->begin()+i);
-        cout << "Only enter a float for gpa." << endl;
-    }else{
-        student->at(i)->gpa;
+  string info;
+  cout << "Enter the student's first name." << endl;
+  cin >> info;
+  if (isNum(info)){
+    stringstream io(info);
+    if(isFloat(info)){
+
     }
-    i++;
-    return 0;
+  }
+  //cin >> student->at(i);
+  /*cout << "Enter the students last name." << endl;
+  cin >> student->at(i)->lastName;
+  cout << "Enter the students gpa." << endl;
+  cin >> student->at(i)->gpa;
+  cout << student->at(i)->gpa << endl;
+  if (!(student->at(i)->gpa)){
+    student->erase(student->begin()+i);
+    cout << "Only enter a float for gpa." << endl;
+  }else{
+    student->at(i)->gpa;
+  }*/
+  i++;
+  return 0;
 }
