@@ -16,13 +16,7 @@ struct id {
   int studentId;
   float gpa;
 };
-vector<id> exist;
-bool isFloat(float x){
-  return true;
-}
-bool isFloat(int x){
-  return false;
-}
+id*p = new id;
 bool isNum(string y){
   for (int i; i < y.length(); i++){
     if (isdigit(i) == false){
@@ -31,10 +25,12 @@ bool isNum(string y){
   }
   return true;
 }
-bool isFloat();
 int add();
-int i = 0;
-vector<id*> * student = new vector<id*>(3);
+int print();
+int delete();
+int number = 0;
+vector<id*> * student = new vector<id*>(0);
+int size = student->size();
 int main(){
     string terminal;
     cout << "This is a catalogue of students. Type ADD to add a student, PRINT to "
@@ -45,7 +41,7 @@ int main(){
         add();
         main();
     }else if (terminal == "PRINT") {
-        cout << "PRINT function coming soon." << endl;
+        print();
         main();
     }else if (terminal == "DELETE"){
         cout << "DELETE function coming soon!" << endl;
@@ -59,28 +55,57 @@ int main(){
     }
     return 0;
 }
-int add(){
-  string info;
-  cout << "Enter the student's first name." << endl;
-  cin >> info;
-  if (isNum(info)){
-    stringstream io(info);
-    if(isFloat(info)){
-
+int delete(){
+    string delID;
+    cout << "Enter the student id of the student you want to delete from the catalogue." << endl;
+    cin >> delID;
+    int ud;
+    if (isNum(delID)){
+        stringstream io(delID)
+        io >> ud;
     }
-  }
-  //cin >> student->at(i);
-  /*cout << "Enter the students last name." << endl;
-  cin >> student->at(i)->lastName;
-  cout << "Enter the students gpa." << endl;
-  cin >> student->at(i)->gpa;
-  cout << student->at(i)->gpa << endl;
-  if (!(student->at(i)->gpa)){
-    student->erase(student->begin()+i);
-    cout << "Only enter a float for gpa." << endl;
-  }else{
-    student->at(i)->gpa;
-  }*/
-  i++;
-  return 0;
+    
+}
+int print(){
+    if (size == 0){
+        cout << "There are no students to print." << endl;
+    }
+    cout << "" << endl;
+    for (int i = 0; i < size; i++){
+        cout << "First name: " << student->at(i)->firstName << " Last name: " << student->at(i)->lastName << endl;
+        cout << " GPA: " << student->at(i)->gpa << " Student ID: " << student->at(i)->studentId << endl;
+        cout << "\n";
+    }
+    return 0;
+}
+int add(){
+    id*p = new id;
+    student->push_back(p);
+    id*e = new id;
+    student->at(number) = e;
+    string info;
+    cout << "Enter the student's first name." << endl;
+    cin >> info;
+    e->firstName = info;
+    cout << "Enter the students last name." << endl;
+    cin >> info;
+    e->lastName = info;
+    cout << "Enter the students gpa." << endl;
+    cin >> info;
+    float f;
+    if (isNum(info)){
+        stringstream io(info);
+        io >> f;
+        e->gpa = f;
+    }
+    cout << "Enter the students id number. " << endl;
+    cin >> info;
+    int b;
+    if (isNum(info)){
+        stringstream io(info);
+        io >> b;
+        e->studentId = b;
+    }
+    number++;
+    return 0;
 }
