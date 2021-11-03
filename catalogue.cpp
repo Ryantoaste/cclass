@@ -17,17 +17,20 @@ struct id {
   float gpa;
 };
 id*p = new id;
-bool isNum(string y){
-  for (int i; i < y.length(); i++){
-    if (isdigit(i) == false){
-      return false;
+bool isNum(string num){
+    cout << num.length() << endl;
+    for (int i; i < num.length(); i++){
+        cout << "n2" << endl;
+        if (isdigit(i) == false){
+            cout << "yes2" << endl;
+          return false;
+        }
     }
-  }
-  return true;
+    return true;
 }
-int add();
-int print();
-int delete();
+void add();
+void print();
+void delet();
 int number = 0;
 vector<id*> * student = new vector<id*>(0);
 int size = student->size();
@@ -44,7 +47,7 @@ int main(){
         print();
         main();
     }else if (terminal == "DELETE"){
-        cout << "DELETE function coming soon!" << endl;
+        delet();
         main();
     }else if (terminal == "EXIT") {
         cout << "Goodbye!" << endl;
@@ -55,18 +58,37 @@ int main(){
     }
     return 0;
 }
-int delete(){
-    string delID;
+void delet(){
+    int delID;
     cout << "Enter the student id of the student you want to delete from the catalogue." << endl;
     cin >> delID;
-    int ud;
-    if (isNum(delID)){
-        stringstream io(delID)
-        io >> ud;
+    while (cin.fail()){
+        cout << "Only enter numbers for the gpa." << endl;
+        cin.clear();
+        cin.ignore(256, '\n');
+        delet();
+    }
+    bool found = false;
+    for (int i = 0; i < student->size(); i++){
+        id*n = new id;
+        student->at(i) = n;
+        if (n->studentId == delID){
+            found = true;
+            delID = i;
+            break;
+        }
+    }
+    if (found == true){
+        student->erase(student->begin(), student->begin()+delID);
+        print();
+        //cout << "Erased!" << endl;
+    }else{
+        cout << "Enter a valid id number." << endl;
+        delet();
     }
     
 }
-int print(){
+void print(){
     if (size == 0){
         cout << "There are no students to print." << endl;
     }
@@ -76,36 +98,41 @@ int print(){
         cout << " GPA: " << student->at(i)->gpa << " Student ID: " << student->at(i)->studentId << endl;
         cout << "\n";
     }
-    return 0;
 }
-int add(){
+void add(){
     id*p = new id;
     student->push_back(p);
     id*e = new id;
     student->at(number) = e;
     string info;
+    int infi;
+    cout << "Enter the students gpa." << endl;
+    cin >> infi;
+    while (cin.fail()){
+        cout << "Only enter numbers for the gpa." << endl;
+        cin.clear();
+        cin.ignore(256, '\n');
+        student->erase(student->begin(),student->begin()+number);
+        student->pop_back();
+        add();
+    }
+    e->gpa = infi;
     cout << "Enter the student's first name." << endl;
     cin >> info;
     e->firstName = info;
     cout << "Enter the students last name." << endl;
     cin >> info;
     e->lastName = info;
-    cout << "Enter the students gpa." << endl;
-    cin >> info;
-    float f;
-    if (isNum(info)){
-        stringstream io(info);
-        io >> f;
-        e->gpa = f;
-    }
     cout << "Enter the students id number. " << endl;
-    cin >> info;
-    int b;
-    if (isNum(info)){
-        stringstream io(info);
-        io >> b;
-        e->studentId = b;
+    cin >> infi;
+    while (cin.fail()){
+        cout << "Only enter numbers for the student id." << endl;
+        cin.clear();
+        cin.ignore(256, '\n');
+        student->erase(student->begin(),student->begin()+number);
+        student->pop_back();
+        add();
     }
+    e->studentId = infi;
     number++;
-    return 0;
 }
